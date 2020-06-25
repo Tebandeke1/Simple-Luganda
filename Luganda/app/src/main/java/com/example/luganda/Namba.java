@@ -32,7 +32,7 @@ public class Namba extends AppCompatActivity {
         numbers.add("Nine");
         numbers.add("Ten");
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,numbers);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,R.layout.list_item,numbers);
 
         ListView view = findViewById(R.id.list);
 
