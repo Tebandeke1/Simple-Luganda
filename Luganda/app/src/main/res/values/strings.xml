@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Luganda</string>
+
+    <string name="family">ABEKIKA (Family)</string>
+    <string name="words">EBIGAMBO (words)</string>
+    <string name="colors">LANGI (Colors)</string>
+    <string name="numbers">NAMBA(Numbers)</string>
+</resources>
