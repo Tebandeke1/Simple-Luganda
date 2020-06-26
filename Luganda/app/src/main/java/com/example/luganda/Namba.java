@@ -19,29 +19,30 @@ public class Namba extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_namba);
 
-        final ArrayList<String> numbers = new ArrayList<>();
+        final ArrayList<Word> numbers = new ArrayList<>();
 
-        numbers.add("One");
-        numbers.add("Two");
-        numbers.add("Three");
-        numbers.add("Four");
-        numbers.add("Five");
-        numbers.add("Six");
-        numbers.add("Seven");
-        numbers.add("Eight");
-        numbers.add("Nine");
-        numbers.add("Ten");
+        numbers.add(new Word("Emu","One"));
+        numbers.add(new Word("Biri","Two"));
+        numbers.add(new Word("Satu","Three"));
+        numbers.add(new Word("Inya","Four"));
+        numbers.add(new Word("Taano","Five"));
+        numbers.add(new Word("Mukaaga","Six"));
+        numbers.add(new Word("Musaanvu","Seven"));
+        numbers.add(new Word("Munaana","Eight"));
+        numbers.add(new Word("Mwenda","Nine"));
+        numbers.add(new Word("Kuumi","Ten"));
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,R.layout.list_item,numbers);
+
+       WordAdapter wordAdapter = new WordAdapter(this,numbers);
 
         ListView view = findViewById(R.id.list);
 
-        view.setAdapter(adapter);
+        view.setAdapter(wordAdapter);
 
         view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(Namba.this, numbers.get(i)+" Selected..", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Namba.this, numbers.get(i).getLugandaWord()+" Selected..", Toast.LENGTH_SHORT).show();
             }
         });
     }
