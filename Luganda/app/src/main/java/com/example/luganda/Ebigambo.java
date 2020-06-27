@@ -25,6 +25,7 @@ public class Ebigambo extends AppCompatActivity {
         words.add(new Word("Tugende","Let's go."));
         words.add(new Word("Jangu wano","Come here"));
         words.add(new Word("Wasiibye otya?","How was your day?"));
+        words.add(new Word("Obera wa?","Where do you live?"));
 
         WordAdapter wordAdapter = new WordAdapter(this,words);
 

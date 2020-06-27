@@ -3,19 +3,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:padding="16dp">
 
-    <TextView
-        android:id="@+id/luganda_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text="Emu" />
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:id="@+id/image"
+        android:src="@mipmap/starter" />
 
-    <TextView
-        android:id="@+id/default_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text="one" />
+    <LinearLayout
+        android:id="@+id/textContainer"
+        android:paddingLeft="16dp"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/luganda_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Emu"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@id/image"/>
+
+        <TextView
+            android:id="@+id/default_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="one" />
+
+    </LinearLayout>
+
+
 
 </LinearLayout>
