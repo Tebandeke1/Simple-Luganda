@@ -19,16 +19,16 @@ public class Namba extends AppCompatActivity {
 
         final ArrayList<Word> numbers = new ArrayList<>();
 
-        numbers.add(new Word("Emu","One"));
-        numbers.add(new Word("Biri","Two"));
-        numbers.add(new Word("Satu","Three"));
-        numbers.add(new Word("Inya","Four"));
-        numbers.add(new Word("Taano","Five"));
-        numbers.add(new Word("Mukaaga","Six"));
-        numbers.add(new Word("Musaanvu","Seven"));
-        numbers.add(new Word("Munaana","Eight"));
-        numbers.add(new Word("Mwenda","Nine"));
-        numbers.add(new Word("Kuumi","Ten"));
+        numbers.add(new Word("Emu","One",R.drawable.number_one));
+        numbers.add(new Word("Biri","Two",R.drawable.number_two));
+        numbers.add(new Word("Satu","Three",R.drawable.number_three));
+        numbers.add(new Word("Inya","Four",R.drawable.number_four));
+        numbers.add(new Word("Taano","Five",R.drawable.number_five));
+        numbers.add(new Word("Mukaaga","Six",R.drawable.number_six));
+        numbers.add(new Word("Musaanvu","Seven",R.drawable.number_seven));
+        numbers.add(new Word("Munaana","Eight",R.drawable.number_eight));
+        numbers.add(new Word("Mwenda","Nine",R.drawable.number_nine));
+        numbers.add(new Word("Kuumi","Ten",R.drawable.number_ten));
 
 
        WordAdapter wordAdapter = new WordAdapter(this,numbers);
