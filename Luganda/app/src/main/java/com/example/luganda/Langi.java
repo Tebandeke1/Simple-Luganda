@@ -25,7 +25,7 @@ public class Langi extends AppCompatActivity {
         words.add(new Word("Kyenvu","Yellow",R.drawable.color_mustard_yellow));
         words.add(new Word("Kaki","Grey",R.drawable.color_gray));
 
-        WordAdapter wordAdapter = new WordAdapter(this, words);
+        WordAdapter wordAdapter = new WordAdapter(this, words,R.color.category_colors);
         ListView listView = findViewById(R.id.list);
         listView.setAdapter(wordAdapter);
 
