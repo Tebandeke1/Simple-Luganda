@@ -27,7 +27,7 @@ public class Ebigambo extends AppCompatActivity {
         words.add(new Word("Wasiibye otya?","How was your day?"));
         words.add(new Word("Obera wa?","Where do you live?"));
 
-        WordAdapter wordAdapter = new WordAdapter(this,words);
+        WordAdapter wordAdapter = new WordAdapter(this,words,R.color.category_words);
 
         ListView listView = findViewById(R.id.list);
         listView.setAdapter(wordAdapter);

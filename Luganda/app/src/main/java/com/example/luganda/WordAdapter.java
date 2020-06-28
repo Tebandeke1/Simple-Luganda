@@ -10,13 +10,16 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 
 public class WordAdapter extends ArrayAdapter<Word> {
 
-    public WordAdapter(Activity activity, ArrayList<Word> words){
+    private int colorChange;
+    public WordAdapter(Activity activity, ArrayList<Word> words,int colorChange){
         super(activity,0,words);
+        this.colorChange = colorChange;
     }
 
     @NonNull
@@ -33,7 +36,17 @@ public class WordAdapter extends ArrayAdapter<Word> {
 
         ImageView imageView = view.findViewById(R.id.image);
 
-        imageView.setImageResource(word.getImageResource());
+        if (word.hasImage()){
+            // we have images to display .... we use this
+            imageView.setImageResource(word.getImageResource());
+            //we even set the image view visible
+            imageView.setVisibility(View.VISIBLE);
+        }else{
+            //in case we don't have images to display to the user through the activity
+            // we just set the image view to gone
+            imageView.setVisibility(View.GONE);
+        }
+
 
         TextView lugandaText = view.findViewById(R.id.luganda_text_view);
 
@@ -41,6 +54,10 @@ public class WordAdapter extends ArrayAdapter<Word> {
 
         TextView  defaultView = view.findViewById(R.id.default_text_view);
         defaultView.setText(word.getDefaultWord());
+
+        View tetxContainer = view.findViewById(R.id.textContainer);
+        int color = ContextCompat.getColor(getContext(),colorChange);
+        tetxContainer.setBackgroundColor(color);
 
         return view;
     }

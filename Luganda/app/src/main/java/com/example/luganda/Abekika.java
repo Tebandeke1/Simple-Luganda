@@ -27,7 +27,7 @@ public class Abekika extends AppCompatActivity {
         words.add(new Word("Jaaja omukyala","Grandmother",R.drawable.family_grandmother));
         words.add(new Word("Jaaja omusajja ","Grandfather",R.drawable.family_grandfather));
 
-        WordAdapter wordAdapter = new WordAdapter(this,words);
+        WordAdapter wordAdapter = new WordAdapter(this,words,R.color.category_family);
 
         ListView listView = findViewById(R.id.list);
         listView.setAdapter(wordAdapter);

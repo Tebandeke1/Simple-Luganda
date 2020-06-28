@@ -31,7 +31,7 @@ public class Namba extends AppCompatActivity {
         numbers.add(new Word("Kuumi","Ten",R.drawable.number_ten));
 
 
-       WordAdapter wordAdapter = new WordAdapter(this,numbers);
+       WordAdapter wordAdapter = new WordAdapter(this,numbers,R.color.category_numbers);
 
         ListView view = findViewById(R.id.list);
 
