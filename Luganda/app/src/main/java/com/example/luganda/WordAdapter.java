@@ -34,6 +34,7 @@ public class WordAdapter extends ArrayAdapter<Word> {
 
         Word word = getItem(position);
 
+        //displaying images in the adapter
         ImageView imageView = view.findViewById(R.id.image);
 
         if (word.hasImage()){
@@ -46,6 +47,9 @@ public class WordAdapter extends ArrayAdapter<Word> {
             // we just set the image view to gone
             imageView.setVisibility(View.GONE);
         }
+
+        //this image view is for image play button
+        ImageView imageView1 = view.findViewById(R.id.imagePlay);
 
 
         TextView lugandaText = view.findViewById(R.id.luganda_text_view);
