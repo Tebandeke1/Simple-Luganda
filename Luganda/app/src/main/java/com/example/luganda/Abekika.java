@@ -2,6 +2,8 @@ package com.example.luganda;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
@@ -12,7 +14,11 @@ import java.util.ArrayList;
 
 public class Abekika extends AppCompatActivity {
 
+    //handles media player for all audio files ;
     private MediaPlayer mediaPlayer;
+
+    //Handles audio focus when playing sound file
+    private AudioManager audioManager;
 
     //This player gets triggered when the song is done being played so
 
@@ -27,6 +33,9 @@ public class Abekika extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_words);
+
+        //create a setup to request audio focus
+         audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 
         final ArrayList<Word> words = new ArrayList<>();
 
@@ -50,13 +59,33 @@ public class Abekika extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Word word = words.get(i);
 
+                //release media if it is currently playing because we want to play a different file
                 releaseMediaPlay();
 
-                mediaPlayer = MediaPlayer.create(getApplicationContext(),word.getAudioResource());
-                mediaPlayer.start();
 
-                //then here we call the on complete listener object
-                mediaPlayer.setOnCompletionListener(onCompletionListener);
+
+                int result = audioManager.requestAudioFocus(focusChangeListener,AudioManager.STREAM_MUSIC,AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+
+                // Request audio focus so in order to play the audio file. The app needs to play a
+                // short audio file, so we will request audio focus with a short amount of time
+                // with AUDIOFOCUS_GAIN_TRANSIENT.
+                if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED ) {
+
+                    // We have audio focus now.
+
+                    // Create and setup the {@link MediaPlayer} for the audio resource associated
+                    // with the current word
+                    mediaPlayer = MediaPlayer.create(getApplicationContext(),word.getAudioResource());
+
+                    // Start the audio file
+                    mediaPlayer.start();
+
+                    // Setup a listener on the media player, so that we can stop and release the
+                    // media player once the sound has finished playing.
+                    //then here we call the on complete listener object
+                    mediaPlayer.setOnCompletionListener(onCompletionListener);
+
+                }
             }
         });
     }
@@ -70,15 +99,36 @@ public class Abekika extends AppCompatActivity {
 
             // we after set the media player back to null telling the song to be played that the media is null
             mediaPlayer = null;
+
+            // Regardless of whether or not we were granted audio focus, abandon it. This also
+            // unregisters the AudioFocusChangeListener so we don't get anymore callbacks.
+            audioManager.abandonAudioFocus(focusChangeListener);
         }
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        releaseMediaPlay();
-    }
+    //This method helps mostly when we want to pause the audio playing so as to recieve a phone call
+    private AudioManager.OnAudioFocusChangeListener focusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
+        @Override
+        public void onAudioFocusChange(int focus) {
 
+            if (focus == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT || focus == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK){
+                //AUDIOFOCUS_LOSS_TRANSIENT means we have lost the  audio focus for a short period of time
+                //AUDIO_LOSS_TRANSIENT_CAN_DUCK means we can reduce the audio volume for a short period of time
+                //we can treat these states in the same way because almost they are the same
+
+                //pause play back and then after play the song from the begining because these are are short audio files
+                mediaPlayer.pause();
+                mediaPlayer.seekTo(0);
+            }else if (focus == AudioManager.AUDIOFOCUS_GAIN){
+                //this AudioManager.AUDIOFOCUS_GAIN means we can gain the audio manager hence playing the audio again
+                mediaPlayer.start();
+            }else if (focus == AudioManager.AUDIOFOCUS_LOSS){
+                //  this AUDIOFOCUS_LOSS means we have lost the song completely so we just release the media
+                //first stop play and release the resources
+                releaseMediaPlay();
+            }
+        }
+    };
     @Override
     protected void onStop() {
         super.onStop();

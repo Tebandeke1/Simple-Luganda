@@ -2,6 +2,8 @@ package com.example.luganda;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +17,9 @@ public class Langi extends AppCompatActivity {
 
     private MediaPlayer mediaPlayer;
 
+    //this is going to handle audio focus when playing audio files
+
+    private  AudioManager audioManager;
     //This player gets triggered when the song is done being played so
 
     private MediaPlayer.OnCompletionListener onCompletionListener = new MediaPlayer.OnCompletionListener() {
@@ -24,10 +29,37 @@ public class Langi extends AppCompatActivity {
             releaseMediaPlay();
         }
     };
+
+    //This method helps mostly when we want to pause the audio playing so as to recieve a phone call
+    private AudioManager.OnAudioFocusChangeListener focusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
+        @Override
+        public void onAudioFocusChange(int focus) {
+
+            if (focus == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT || focus == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK){
+                //AUDIOFOCUS_LOSS_TRANSIENT means we have lost the  audio focus for a short period of time
+                //AUDIO_LOSS_TRANSIENT_CAN_DUCK means we can reduce the audio volume for a short period of time
+                //we can treat these states in the same way because almost they are the same
+
+                //pause play back and then after play the song from the begining because these are are short audio files
+                mediaPlayer.pause();
+                mediaPlayer.seekTo(0);
+            }else if (focus == AudioManager.AUDIOFOCUS_GAIN){
+                //this AudioManager.AUDIOFOCUS_GAIN means we can gain the audio manager hence playing the audio again
+                mediaPlayer.start();
+            }else if (focus == AudioManager.AUDIOFOCUS_LOSS){
+                //  this AUDIOFOCUS_LOSS means we have lost the song completely so we just release the media
+                //first stop play and release the resources
+                releaseMediaPlay();
+            }
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_words);
+
+        //getting the audio context
+        audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 
         final ArrayList<Word> words = new ArrayList<>();
         words.add(new Word("Myufu","Red",R.drawable.color_red,R.raw.red));
@@ -49,10 +81,16 @@ public class Langi extends AppCompatActivity {
                 releaseMediaPlay();
                 Word word = words.get(i);
 
-                mediaPlayer = MediaPlayer.create(Langi.this,word.getAudioResource());
-                mediaPlayer.start();
+                int result = audioManager.requestAudioFocus(focusChangeListener,AudioManager.STREAM_MUSIC,AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
 
-                mediaPlayer.setOnCompletionListener(onCompletionListener);
+                if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+
+                    mediaPlayer = MediaPlayer.create(Langi.this, word.getAudioResource());
+                    mediaPlayer.start();
+
+                    mediaPlayer.setOnCompletionListener(onCompletionListener);
+
+                }
             }
         });
     }
@@ -67,13 +105,11 @@ public class Langi extends AppCompatActivity {
 
             // we after set the media player back to null telling the song to be played that the media is null
             mediaPlayer = null;
-        }
-    }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        releaseMediaPlay();
+            // Regardless of whether or not we were granted audio focus, abandon it. This also
+            // unregisters the AudioFocusChangeListener so we don't get anymore callbacks.
+            audioManager.abandonAudioFocus(focusChangeListener);
+        }
     }
 
     @Override
