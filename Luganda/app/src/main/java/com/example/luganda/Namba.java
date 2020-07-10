@@ -75,4 +75,22 @@ public class Namba extends AppCompatActivity {
             mediaPlayer = null;
         }
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        releaseMediaPlay();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        releaseMediaPlay();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        releaseMediaPlay();
+    }
 }

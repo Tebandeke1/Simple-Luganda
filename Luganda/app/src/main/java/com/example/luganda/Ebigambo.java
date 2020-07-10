@@ -72,4 +72,22 @@ public class Ebigambo extends AppCompatActivity {
             mediaPlayer = null;
         }
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        releaseMediaPlay();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        releaseMediaPlay();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        releaseMediaPlay();
+    }
 }
