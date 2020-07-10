@@ -48,9 +48,6 @@ public class WordAdapter extends ArrayAdapter<Word> {
             imageView.setVisibility(View.GONE);
         }
 
-        //this image view is for image play button
-        ImageView imageView1 = view.findViewById(R.id.imagePlay);
-
 
         TextView lugandaText = view.findViewById(R.id.luganda_text_view);
 
