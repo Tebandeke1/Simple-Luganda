@@ -10,14 +10,37 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Ebigambo"
-            android:label="@string/words">
+            android:label="@string/words"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
         </activity>
         <activity android:name=".Langi"
-            android:label="@string/colors"/>
+            android:label="@string/colors"
+            android:parentActivityName=".MainActivity">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"
+                />
+        </activity>
+
         <activity android:name=".Abekika"
-            android:label="@string/family"/>
+            android:label="@string/family"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"
+                />
+        </activity>
         <activity android:name=".Namba"
-            android:label="@string/numbers"/>
+            android:label="@string/numbers"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
+        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
