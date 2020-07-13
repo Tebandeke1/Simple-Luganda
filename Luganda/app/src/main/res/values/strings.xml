@@ -5,4 +5,7 @@
     <string name="words">EBIGAMBO (words)</string>
     <string name="colors">LANGI (Colors)</string>
     <string name="numbers">NAMBA(Numbers)</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
