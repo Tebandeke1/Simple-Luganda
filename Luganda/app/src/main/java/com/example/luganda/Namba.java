@@ -2,16 +2,7 @@ package com.example.luganda;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
 
 public class Namba extends AppCompatActivity {
 
@@ -21,7 +12,7 @@ public class Namba extends AppCompatActivity {
         setContentView(R.layout.activity_category);
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container,new Numbers())
+                .replace(R.id.container,new NumbersFragment())
                 .commit();
     }
 

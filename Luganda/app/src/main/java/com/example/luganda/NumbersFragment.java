@@ -20,7 +20,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Numbers extends Fragment {
+public class NumbersFragment extends Fragment {
 
 
     private MediaPlayer mediaPlayer;
@@ -58,7 +58,7 @@ public class Numbers extends Fragment {
         }
     };
 
-    public Numbers() {
+    public NumbersFragment() {
         // Required empty public constructor
     }
 
