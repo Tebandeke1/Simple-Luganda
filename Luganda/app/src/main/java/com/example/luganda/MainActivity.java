@@ -1,75 +1,37 @@
 package com.example.luganda;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewParent;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView textNumbers;
-    private TextView textColors;
-    private TextView textFamily;
-    private TextView textWords;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        textColors = findViewById(R.id.colors);
-        textFamily = findViewById(R.id.family);
-        textNumbers = findViewById(R.id.numbers);
-        textWords = findViewById(R.id.phrases);
 
-        colorsListener();
-        familyListener();
-        numbersListener();
-        wordsListener();
+        ViewPager viewPager = (ViewPager)findViewById(R.id.viewPager);
+
+        FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager());
+
+
+        viewPager.setAdapter(pagerAdapter);
+
+        TabLayout layout = (TabLayout) findViewById(R.id.viewTabPager);
+        layout.setupWithViewPager(viewPager);
     }
 
-    private void wordsListener() {
-        textWords.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,Ebigambo.class);
-                startActivity(intent);
-            }
-        });
-    }
 
-    private void numbersListener() {
-        textNumbers.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,Namba.class);
-                startActivity(intent);
-            }
-        });
-    }
 
-    private void familyListener() {
-        textFamily.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, Abekika.class);
-                startActivity(intent);
-            }
-        });
-    }
-
-    private void colorsListener() {
-        textColors.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,Langi.class);
-                startActivity(intent);
-            }
-        });
-    }
 }
